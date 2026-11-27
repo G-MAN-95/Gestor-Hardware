@@ -1,0 +1,15 @@
+{
+  "name": "gestor-hardware",
+  "version": "1.0.0",
+  "description": "Gestor de inventario de hardware con Node.js y Express (Tarea 3 - Git y Git Flow)",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}
