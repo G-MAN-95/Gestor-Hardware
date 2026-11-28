@@ -21,9 +21,17 @@ function serieRepetida(numeroSerie, idActual) {
   return store.listar().some((e) => String(e.numeroSerie).toUpperCase() === serie && e.id !== idActual);
 }
 
-// READ: listar todos
+// READ: listar todos (con búsqueda opcional: /api/equipos?q=texto)
 router.get('/', (req, res) => {
-  res.json(store.listar());
+  const q = String(req.query.q || '').trim().toLowerCase();
+  let equipos = store.listar();
+  if (q) {
+    equipos = equipos.filter((e) =>
+      [e.nombre, e.marca, e.modelo, e.numeroSerie, e.categoria, e.estado]
+        .some((valor) => String(valor || '').toLowerCase().includes(q))
+    );
+  }
+  res.json(equipos);
 });
 
 // READ: obtener uno por id
