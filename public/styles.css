@@ -1,0 +1,79 @@
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #f2f4f8;
+  color: #222;
+}
+
+header {
+  background: #1f3864;
+  color: #fff;
+  padding: 16px 24px;
+}
+
+header h1 { margin: 0; font-size: 22px; }
+header p { margin: 4px 0 0; font-size: 14px; opacity: 0.8; }
+
+main {
+  max-width: 960px;
+  margin: 24px auto;
+  padding: 0 16px;
+}
+
+.tarjeta {
+  background: #fff;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.tarjeta h2 { margin-top: 0; font-size: 18px; color: #1f3864; }
+
+.fila { display: flex; gap: 16px; margin-bottom: 12px; }
+.fila label { flex: 1; display: flex; flex-direction: column; font-size: 14px; gap: 4px; }
+
+input, select {
+  padding: 8px;
+  border: 1px solid #c5ccd6;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.botones { display: flex; gap: 8px; }
+
+button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  background: #2f5496;
+  color: #fff;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+button:hover { opacity: 0.9; }
+button.secundario { background: #7a8699; }
+button.peligro { background: #c0392b; }
+
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+th, td { text-align: left; padding: 8px; border-bottom: 1px solid #e3e7ee; }
+th { background: #eef2f8; }
+td.acciones { white-space: nowrap; }
+td.acciones button { padding: 4px 10px; margin-right: 4px; }
+
+.estado { padding: 2px 8px; border-radius: 10px; font-size: 12px; font-weight: bold; }
+.estado.ok { background: #e8f5e9; color: #256029; }
+.estado.reparacion { background: #fff4e0; color: #8a5300; }
+.estado.baja { background: #eceff1; color: #546e7a; }
+
+.mensaje { padding: 10px; border-radius: 4px; margin-bottom: 12px; font-size: 14px; }
+.mensaje.error { background: #fdecea; color: #a12a1f; }
+.mensaje.exito { background: #e8f5e9; color: #256029; }
+.mensaje ul { margin: 6px 0 0; padding-left: 20px; }
+
+@media (max-width: 640px) {
+  .fila { flex-direction: column; }
+}
