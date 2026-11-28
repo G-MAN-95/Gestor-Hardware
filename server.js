@@ -1,3 +1,4 @@
+const path = require('path');
 const express = require('express');
 const rutasEquipos = require('./src/rutas-equipos');
 
@@ -5,6 +6,9 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
+
+// Página web (carpeta public)
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Ruta para comprobar que el servidor está funcionando
 app.get('/api/salud', (req, res) => {
