@@ -1,6 +1,7 @@
 // Rutas de la API REST de equipos de hardware (CRUD)
 const express = require('express');
 const store = require('./store');
+const validarEquipo = require('./validar');
 
 const router = express.Router();
 const CAMPOS = ['nombre', 'marca', 'modelo', 'numeroSerie', 'categoria', 'estado', 'fechaCompra'];
@@ -12,6 +13,12 @@ function tomarCampos(body) {
     if (body[campo] !== undefined) datos[campo] = String(body[campo]).trim();
   }
   return datos;
+}
+
+// Revisa que ningún otro equipo tenga el mismo número de serie
+function serieRepetida(numeroSerie, idActual) {
+  const serie = numeroSerie.toUpperCase();
+  return store.listar().some((e) => String(e.numeroSerie).toUpperCase() === serie && e.id !== idActual);
 }
 
 // READ: listar todos
@@ -27,14 +34,23 @@ router.get('/:id', (req, res) => {
 });
 
 // CREATE: registrar un equipo nuevo
-router.post('/', (req, res) => {
-  const nuevo = store.crear(tomarCampos(req.body));
+router.post('/', validarEquipo, (req, res) => {
+  const datos = tomarCampos(req.body);
+  if (serieRepetida(datos.numeroSerie)) {
+    return res.status(409).json({ error: 'Ya existe un equipo con ese número de serie' });
+  }
+  const nuevo = store.crear(datos);
   res.status(201).json(nuevo);
 });
 
 // UPDATE: actualizar un equipo existente
-router.put('/:id', (req, res) => {
-  const actualizado = store.actualizar(Number(req.params.id), tomarCampos(req.body));
+router.put('/:id', validarEquipo, (req, res) => {
+  const id = Number(req.params.id);
+  const datos = tomarCampos(req.body);
+  if (serieRepetida(datos.numeroSerie, id)) {
+    return res.status(409).json({ error: 'Ya existe un equipo con ese número de serie' });
+  }
+  const actualizado = store.actualizar(id, datos);
   if (!actualizado) return res.status(404).json({ error: 'Equipo no encontrado' });
   res.json(actualizado);
 });
