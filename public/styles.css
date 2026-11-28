@@ -74,6 +74,8 @@ td.acciones button { padding: 4px 10px; margin-right: 4px; }
 .mensaje.exito { background: #e8f5e9; color: #256029; }
 .mensaje ul { margin: 6px 0 0; padding-left: 20px; }
 
+.buscador { width: 100%; margin-bottom: 12px; }
+
 @media (max-width: 640px) {
   .fila { flex-direction: column; }
 }
